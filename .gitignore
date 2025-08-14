@@ -1,0 +1,13 @@
+# Byte-compiled / cache
+__pycache__/
+
+# Virtual environment
+
+# Environment variables
+
+# OS files
+.DS_Store
+
+# IDE configs
+.vscode/
+.idea/

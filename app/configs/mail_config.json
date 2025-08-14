@@ -1,0 +1,23 @@
+{
+    "api_key": "b83f1368-155b-4e53-8151-d2ab788adc5e",
+    "api_name": "AIProxys SMTP API",
+    "api_description": "AI Proxys SMTP API - Send mails with attachments and in background as well.",
+    "version": "1.0.0",
+    "openapi_url": "/openapi.json",
+    "api_url": "http://127.0.0.1:8000",
+    "SECRET_KEY" : "BASHA",
+
+    "max_len_recipient_email": 64,
+    "max_len_subject": 255,
+    "max_len_body": 50000,
+
+    "MAIL_USERNAME" : "AIProxyBots@gmail.com",
+    "MAIL_PASSWORD" : "uawcdjqovodpinsu",
+    "MAIL_FROM" : "AIProxyBots@gmail.com",
+    "MAIL_PORT" : 465,
+    "MAIL_SERVER" : "smtp.gmail.com",
+    "MAIL_STARTTLS" : false,
+    "MAIL_SSL_TLS" : true,     
+    "USE_CREDENTIALS" : true,
+    "VALIDATE_CERTS" : true
+}
