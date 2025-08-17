@@ -29,6 +29,7 @@ class Email(BaseRepository[EmailModel]):
         return conf
 
     async def sendEmail(self, email: EmailDTO):
+        email.message = email.message + "<br><br>" + "--------" + "Customer Name: " + email.name + " Customer Email: " + email.customer_email + "--------"
         message = MessageSchema(
             subject = email.subject,
             recipients = email.email,
