@@ -1,6 +1,8 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from app.routers import customer_router, user_router, demo_router, email_router
 from app.configs import migration
+import json
 
 app = FastAPI(
     title = "AIProxys Server",
@@ -11,6 +13,21 @@ app.include_router(user_router.userRoutes)
 app.include_router(customer_router.customerRoutes)
 app.include_router(demo_router.demoRoutes)
 app.include_router(email_router.emailRoutes)
+
+def load_api_server_config():
+    with open('app/configs/api_server_config.json', 'r') as file:
+        return json.load(file)
+    
+api_server_config = load_api_server_config()
+origins = api_server_config.get('cors_ursl')
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins = origins,
+    allow_credentials = True,
+    allow_methods = ["*"],
+    allow_headers = ["*"],
+)
 
 @app.get("/")
 def root():
