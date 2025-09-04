@@ -32,7 +32,7 @@ class Email(BaseRepository[EmailModel]):
         return conf
 
     async def sendEmail(self, email: EmailDTO, extras: str = ""):
-        email.message = email.message + "<br><br>" + "--------" + "Customer Name: " + email.name + " Customer Email: " + email.customer_email + "--------" + extras
+        email.message = email.message + "<br/><br/>" + "--------<br/>" + "Customer Name: " + email.name + "<br/>" + "Customer Email: " + email.customer_email + "<br/>" + extras + "<br/>--------"
         message = MessageSchema(
             subject = email.subject,
             recipients = email.email,
@@ -52,7 +52,7 @@ class Email(BaseRepository[EmailModel]):
     
     def sendEmailExtraBackground(self, email: EmailExtraDTO):
         extra_params: str = extra_params_to_string(email.extra_params)
-        extra_params = extra_params + "--------"
+        extra_params = extra_params
         email_dto: EmailDTO = to_email_dto(email)
         asyncio.create_task(self.sendEmail(email_dto, extras = extra_params))
         return {"message": "Email sent successfully"}
