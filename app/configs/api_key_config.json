@@ -1,0 +1,15 @@
+{
+    "api_keys": [
+        {
+            "name": "emails",
+            "key": "QUlQcm94eXNTZXJ2ZXJfRW1haWxfQVBJX0tleTpBbGxhaDc4NiM=",
+            "permissions": ["read"],
+            "enabled": true
+        }
+    ],
+      
+    "settings": {
+        "token_expiry": 3600,
+        "rate_limit": 100
+    }
+}
