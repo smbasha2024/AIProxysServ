@@ -8,7 +8,7 @@ from app.auth.auth import load_api_keys, auth_middleware_call
 
 app = FastAPI(
     title = "AIProxys Server",
-    description = "AIProxys API Servrer. Follows CLEAN architecture principles.",
+    description = "AIProxys API Servrer.",
     version = "1.0.0"
 )
 app.include_router(user_router.userRoutes)
