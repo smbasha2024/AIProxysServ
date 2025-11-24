@@ -22,11 +22,13 @@ def load_api_server_config():
         return json.load(file)
     
 api_server_config = load_api_server_config()
-origins = api_server_config.get('cors_ursl')
+origins = api_server_config.get('cors_urls')
+print("CORS Allowed Origins:", origins)
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins = origins,
+    allow_origin_regex=r"https://.*\.aiproxybots\.com",
     allow_credentials = True,
     allow_methods = ["*"],
     allow_headers = ["*"],

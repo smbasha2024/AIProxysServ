@@ -21,7 +21,7 @@ async def stream_agentic_chat(aiPrompt: OllamaDTO, service: OllamaServ = Depends
         # Parse request body
         #body = await request.json()
         prompt = aiPrompt.prompt  #body.get("prompt", "")
-        model = aiPrompt.model #body.get("model", ollama_client.model_name)
+        model = aiPrompt.model or "deepseek-v3.1:671b-cloud" #body.get("model", ollama_client.model_name)
         stream = aiPrompt.stream #body.get("stream", True)
         #print("In Router - ", aiPrompt)
         
