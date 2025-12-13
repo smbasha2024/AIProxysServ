@@ -1,9 +1,12 @@
 {
-    "DEFAULT_MODEL": "deepseek-v3.1:671b-cloud",
+    "DEFAULT_MODEL": "gpt-oss:120b-cloud", 
+    "_comment": "deepseek-v3.1:671b-cloud",
     "OLLAMA_API_URL": "http://localhost:11434",
     "AVAILABLE_MODELS": [
         "llama3.1-8b",
         "llama3.2-13b",
         "llama3.3-70b"
-    ]
+    ],
+    "MODEL_FAMILY": "gpt-oss"
 }
+

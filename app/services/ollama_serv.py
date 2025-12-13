@@ -9,6 +9,7 @@ class OllamaStreamChat:
         ollama_config = self.load_ollama_config()
         #self.model_name = model_name
         self.model_name = ollama_config.get('DEFAULT_MODEL')
+        #print("Config Default Model: ", ollama_config.get('DEFAULT_MODEL'))
         self.messages = []
         #self.ollama_url = "http://localhost:11434/api/generate"
         self.ollama_url = ollama_config.get('OLLAMA_API_URL') + "/api/generate"
@@ -25,7 +26,7 @@ class OllamaStreamChat:
             "prompt": ollamaPrompt.prompt,
             "stream": True
         }
-        
+        #print("Ollama Service - Streaming chat with payload: ", payload)
         try:
             async with session.post(self.ollama_url, json=payload) as response:
                 response.raise_for_status()
@@ -82,6 +83,7 @@ class OllamaStreamChat:
 
     # Create async generator for streaming
     async def generate(self, prompt:OllamaDTO):
+        #print("Ollama Service - Generating stream response...", prompt)
         async with aiohttp.ClientSession() as session:
             async for chunk in self.stream_chat(prompt, session):
                 yield chunk

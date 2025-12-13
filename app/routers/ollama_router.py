@@ -21,7 +21,7 @@ async def stream_agentic_chat(aiPrompt: OllamaDTO, service: OllamaServ = Depends
         # Parse request body
         #body = await request.json()
         prompt = aiPrompt.prompt  #body.get("prompt", "")
-        model = aiPrompt.model or "deepseek-v3.1:671b-cloud" #body.get("model", ollama_client.model_name)
+        model = aiPrompt.model #or "gpt-oss:120b-cloud" #"deepseek-v3.1:671b-cloud" #body.get("model", ollama_client.model_name)
         stream = aiPrompt.stream #body.get("stream", True)
         #print("In Router - ", aiPrompt)
         
@@ -29,10 +29,11 @@ async def stream_agentic_chat(aiPrompt: OllamaDTO, service: OllamaServ = Depends
             raise HTTPException(status_code=400, detail="Prompt is required")
         
         # Update model if different
-        
-        if model != service.model_name:
+        #print("Using Model Before: ", service.model_name)
+        if model is not None and model != service.model_name:
             service.model_name = model
-        
+        #print("Using Model After: ", service.model_name)
+
         if not stream:
             # Handle non-streaming response (for compatibility)
             return await service.handle_non_streaming(prompt)
@@ -122,7 +123,7 @@ async def get_available_models(service: OllamaServ = Depends(ollama_service_dep)
                 "digest": "sha256:...",
                 "details": {
                     "format": "gguf",
-                    "family": "deepseek"
+                    "family": "gpt" #"deepseek"
                 }
             }
         ]
