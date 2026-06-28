@@ -60,3 +60,24 @@ async def smtp_test():
             "error": str(e),
             "type": type(e).__name__,
         }
+
+@emailRoutes.get("/google-test")
+async def google_test():
+    try:
+        import asyncio
+        reader, writer = await asyncio.wait_for(
+            asyncio.open_connection("google.com", 443),
+            timeout=10,
+        )
+
+        writer.close()
+        await writer.wait_closed()
+
+        return {"status": "Connected"}
+
+    except Exception as e:
+        return {
+            "status": "Failed",
+            "type": type(e).__name__,
+            "error": str(e),
+        }
