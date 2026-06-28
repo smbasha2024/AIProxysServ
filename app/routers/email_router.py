@@ -18,3 +18,24 @@ async def send_email(email: EmailDTO, service: EmailServ = Depends(email_service
 async def send_email_extra(email: EmailExtraDTO, service: EmailServ = Depends(email_service_dep)):
     result = service.sendEmailExtras(email)
     return result
+
+@emailRoutes.get("/smtp-test")
+async def smtp_test():
+    try:
+        import asyncio
+        reader, writer = await asyncio.wait_for(
+            asyncio.open_connection("smtp.gmail.com", 587),
+            timeout=10,
+        )
+
+        writer.close()
+        await writer.wait_closed()
+
+        return {"status": "Connected"}
+
+    except Exception as e:
+        return {
+            "status": "Failed",
+            "error": str(e),
+            "type": type(e).__name__,
+        }
