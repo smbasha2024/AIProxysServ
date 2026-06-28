@@ -32,27 +32,48 @@ class Email(BaseRepository[EmailModel]):
         return conf
 
     async def sendEmail(self, email: EmailDTO, extras: str = ""):
-        email.message = email.message + "<br/><br/>" + "--------<br/>" + "Customer Name: " + email.name + "<br/>" + "Customer Email: " + email.customer_email + "<br/>" + extras + "<br/>--------"
-        message = MessageSchema(
-            subject = email.subject,
-            recipients = email.email,
-            body = email.message,
-            subtype="html"
-        )
-        
-        conf = self.emailConfig()
-        fa = FastMail(conf)
-        await fa.send_message(message)
+        try:
+            email.message = email.message + "<br/><br/>" + "--------<br/>" + "Customer Name: " + email.name + "<br/>" + "Customer Email: " + email.customer_email + "<br/>" + extras + "<br/>--------"
+            message = MessageSchema(
+                subject = email.subject,
+                recipients = email.email,
+                body = email.message,
+                subtype="html"
+            )
+            
+            conf = self.emailConfig()
+            fa = FastMail(conf)
+            await fa.send_message(message)
 
-        return {"message": "Email sent successfully"}
-    
+            return {"message": "Email sent successfully"}
+        except Exception as e:
+            print("EMAIL ERROR")
+            print(e)
+            import traceback
+            traceback.print_exc()
+            return {"message": f"Error sending email: {str(e)}"}
+
     def sendEmailBackground(self, email: EmailDTO):
-        asyncio.create_task(self.sendEmail(email))
-        return {"message": "Email sent successfully"}
+        try:
+            asyncio.create_task(self.sendEmail(email))
+            return {"message": "Email sent successfully"}
+        except Exception as e:
+            print("EMAIL ERROR")
+            print(e)
+            import traceback
+            traceback.print_exc()
+            return {"message": f"Error sending email: {str(e)}"}
     
     def sendEmailExtraBackground(self, email: EmailExtraDTO):
-        extra_params: str = extra_params_to_string(email.extra_params)
-        extra_params = extra_params
-        email_dto: EmailDTO = to_email_dto(email)
-        asyncio.create_task(self.sendEmail(email_dto, extras = extra_params))
-        return {"message": "Email sent successfully"}
+        try:
+            extra_params: str = extra_params_to_string(email.extra_params)
+            extra_params = extra_params
+            email_dto: EmailDTO = to_email_dto(email)
+            asyncio.create_task(self.sendEmail(email_dto, extras = extra_params))
+            return {"message": "Email sent successfully"}
+        except Exception as e:
+            print("EMAIL ERROR")
+            print(e)
+            import traceback
+            traceback.print_exc()
+            return {"message": f"Error sending email: {str(e)}"}
