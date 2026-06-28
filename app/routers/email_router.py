@@ -39,3 +39,24 @@ async def smtp_test():
             "error": str(e),
             "type": type(e).__name__,
         }
+
+@emailRoutes.get("/smtp-test-465")
+async def smtp_test():
+    try:
+        import asyncio
+        reader, writer = await asyncio.wait_for(
+            asyncio.open_connection("smtp.gmail.com", 465),
+            timeout=20,
+        )
+
+        writer.close()
+        await writer.wait_closed()
+
+        return {"status": "Connected"}
+
+    except Exception as e:
+        return {
+            "status": "Failed",
+            "error": str(e),
+            "type": type(e).__name__,
+        }
