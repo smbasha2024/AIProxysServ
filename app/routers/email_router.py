@@ -81,3 +81,21 @@ async def google_test():
             "type": type(e).__name__,
             "error": str(e),
         }
+
+@emailRoutes.get("/smtp-office365")
+async def smtp_office365():
+    try:
+        import asyncio
+        reader, writer = await asyncio.wait_for(
+            asyncio.open_connection("smtp.office365.com", 587),
+            timeout=10,
+        )
+        writer.close()
+        await writer.wait_closed()
+        return {"status": "Connected"}
+    except Exception as e:
+        return {
+            "status": "Failed",
+            "type": type(e).__name__,
+            "error": str(e),
+        }
