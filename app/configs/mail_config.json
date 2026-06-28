@@ -13,10 +13,16 @@
     "USE_CREDENTIALS" : true,
     "VALIDATE_CERTS" : true,
 
+    "RESEND_FROM_EMAIL": "basha@aiproxybots.com",
+    "RESEND_TO_EMAIL": "basha@aiproxybots.com",
+    "RESEND_FROM_NAME": "AIProxyBots",
+    "RESEND_API_KEY": "re_ZuLMnVNr_G14qeWx7Vg11HxE9ky9En8go",
+
     "ALLOWED_TAGS" : [
         "p", "br", "span", "div", "ul", "ol", "li",
         "strong", "em", "u", "h1", "h2", "h3", "blockquote"
         ],
+        
     "ALLOWED_ATTRIBUTES" : {
         "*": ["style", "class", "align"],
         "a": ["href", "title", "target"],

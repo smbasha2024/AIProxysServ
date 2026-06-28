@@ -15,3 +15,7 @@ class Email:
         #result = self.repo.sendEmail(email)
         result = self.repo.sendEmailExtraBackground(email)
         return result
+    
+    def contactThroughEmail(self, email: EmailExtraDTO):
+        result = self.repo.contactThroughEmailBackground(email)
+        return result

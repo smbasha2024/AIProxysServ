@@ -9,7 +9,7 @@ emailRoutes = APIRouter(prefix="/emails", tags=["emails"])
 
 email_service_dep = get_service_factory(EmailServ, EmailRepo)
 
-@emailRoutes.post("/semail/")
+@emailRoutes.post("/semail")
 async def send_email(email: EmailDTO, service: EmailServ = Depends(email_service_dep)):
     result = service.sendEmail(email)
     return result
@@ -17,6 +17,11 @@ async def send_email(email: EmailDTO, service: EmailServ = Depends(email_service
 @emailRoutes.post("/")
 async def send_email_extra(email: EmailExtraDTO, service: EmailServ = Depends(email_service_dep)):
     result = service.sendEmailExtras(email)
+    return result
+
+@emailRoutes.post("/contactEmail")
+async def contact_through_email(email: EmailExtraDTO, service: EmailServ = Depends(email_service_dep)):
+    result = service.contactThroughEmail(email)
     return result
 
 @emailRoutes.get("/smtp-test")

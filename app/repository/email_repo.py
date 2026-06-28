@@ -1,3 +1,5 @@
+import os
+
 from app.repository.base_repo import BaseRepository
 from app.models.email_model import Email as EmailModel
 from app.schema.email_dto import Email as EmailDTO
@@ -71,6 +73,44 @@ class Email(BaseRepository[EmailModel]):
             extra_params = extra_params
             email_dto: EmailDTO = to_email_dto(email)
             asyncio.create_task(self.sendEmail(email_dto, extras = extra_params))
+            return {"message": "Email sent successfully"}
+        except Exception as e:
+            print("EMAIL ERROR")
+            print(e)
+            import traceback
+            traceback.print_exc()
+            return {"message": f"Error sending email: {str(e)}"}
+    
+    def contactThroughEmailBackground(self, email: EmailExtraDTO):
+        import resend
+        #import os
+        try:
+            smtp_config = self.load_smtp_config()
+            resend.api_key = smtp_config.get("RESEND_API_KEY")
+            #resend.api_key = os.getenv("RESEND_API_KEY")
+
+            extra_params: str = extra_params_to_string(email.extra_params)
+            extra_params = extra_params
+            email_dto: EmailDTO = to_email_dto(email)
+            #asyncio.create_task(self.sendEmail(email_dto, extras = extra_params))
+
+            email_dto.message = email_dto.message + "<br/><br/>" + "--------<br/>" + "Customer Name: " + email_dto.name + "<br/>" + "Customer Email: " + email_dto.customer_email + "<br/>" + extra_params + "<br/>--------"
+
+            html = (
+                    email_dto.message
+                )
+
+            params = {
+                "from": f'{smtp_config["RESEND_FROM_NAME"]} <{smtp_config["RESEND_FROM_EMAIL"]}>',
+                "to": [smtp_config["RESEND_TO_EMAIL"]],
+                "reply_to": email.customer_email,
+                "subject": email.subject,
+                "html": html
+            }
+
+            response = resend.Emails.send(params)
+            print(f"Resend API response: {response}")
+            
             return {"message": "Email sent successfully"}
         except Exception as e:
             print("EMAIL ERROR")
