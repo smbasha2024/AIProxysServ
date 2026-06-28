@@ -6,10 +6,10 @@
     "MAIL_USERNAME" : "AIProxyBots@gmail.com",
     "MAIL_PASSWORD" : "pdyapggvsctqijis",
     "MAIL_FROM" : "AIProxyBots@gmail.com",
-    "MAIL_PORT" : 465,
+    "MAIL_PORT" : 587,
     "MAIL_SERVER" : "smtp.gmail.com",
-    "MAIL_STARTTLS" : false,
-    "MAIL_SSL_TLS" : true,     
+    "MAIL_STARTTLS" : true,
+    "MAIL_SSL_TLS" : false,     
     "USE_CREDENTIALS" : true,
     "VALIDATE_CERTS" : true,
 

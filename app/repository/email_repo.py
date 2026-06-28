@@ -42,6 +42,7 @@ class Email(BaseRepository[EmailModel]):
             )
             
             conf = self.emailConfig()
+            print(f"EMAIL CONFIG {conf}")
             fa = FastMail(conf)
             await fa.send_message(message)
 
