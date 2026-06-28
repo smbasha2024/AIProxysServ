@@ -4,7 +4,7 @@
     "max_len_body": 50000,
 
     "MAIL_USERNAME" : "AIProxyBots@gmail.com",
-    "MAIL_PASSWORD" : "pdya pggv sctq ijis",
+    "MAIL_PASSWORD" : "pdyapggvsctqijis",
     "MAIL_FROM" : "AIProxyBots@gmail.com",
     "MAIL_PORT" : 465,
     "MAIL_SERVER" : "smtp.gmail.com",
